@@ -21,19 +21,22 @@
     "publish": null
   },
   "scripts": {
+    "daisyinit": "npx tailwindcss -i ./src/render/main.css -o ./src/render/tailwind.css",
     "postinstall": "electron-builder install-app-deps",
-    "preunit": "webpack --config=build/webpack.unit.config.js --env=test",
+    "preunit": "npm run daisyinit && webpack --config=build/webpack.unit.config.js --env=test",
     "unit": "electron-mocha temp/specs.js --renderer --color --require source-map-support/register",
     "pree2e": "webpack --config=build/webpack.app.config.js --env=test && webpack --config=build/webpack.e2e.config.js --env=test",
     "e2e": "mocha temp/e2e.js --require source-map-support/register",
     "test": "npm run unit && npm run e2e",
-    "start": "node build/start.js",
-    "release": "webpack --config=build/webpack.app.config.js --env=production && electron-builder",
-    "build-deb": "webpack --config=build/webpack.app.config.js --env=production && electron-builder --linux deb"
+    "start": "npm run daisyinit && node build/start.js",
+    "release": "npm run daisyinit && webpack --config=build/webpack.app.config.js --env=production && electron-builder",
+    "build-deb": "npm run daisyinit && webpack --config=build/webpack.app.config.js --env=production && electron-builder --linux deb"
   },
   "dependencies": {
+    "daisyui": "^2.20.0",
     "env": "^0.0.2",
-    "fs-jetpack": "^4.1.0"
+    "fs-jetpack": "^4.1.0",
+    "theme-change": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -48,6 +51,7 @@
     "source-map-support": "^0.5.6",
     "spectron": "^15.0.0",
     "style-loader": "^2.0.0",
+    "tailwindcss": "^3.1.7",
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0",
     "webpack-merge": "^5.7.3",

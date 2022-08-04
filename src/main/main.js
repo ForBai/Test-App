@@ -45,6 +45,7 @@ app.on("ready", () => {
   const mainWindow = createWindow("main", {
     width: 1000,
     height: 600,
+    frame: false,
     webPreferences: {
       // Two properties below are here for demo purposes, and are
       // security hazard. Make sure you know what you're doing
@@ -52,9 +53,24 @@ app.on("ready", () => {
       nodeIntegration: true,
       contextIsolation: false,
       // Spectron needs access to remote module
-      enableRemoteModule: env.name === "test"
+      enableRemoteModule: true,
+      transparent: true,
+      webviewTag: true
     }
   });
+
+  mainWindow.webContents.session.webRequest.onHeadersReceived(
+      {urls: ['*://*/*']},
+      (details, callback) => {
+        Object.keys(details.responseHeaders).filter(x => x.toLowerCase() === 'x-frame-options' || x.toLowerCase() === 'content-security-policy')
+            .map(x => delete details.responseHeaders[x])
+
+        callback({
+          cancel: false,
+          responseHeaders: details.responseHeaders,
+        })
+      },
+  )
 
 
   console.log(path.join(__dirname, "../src/render/app.html"));
