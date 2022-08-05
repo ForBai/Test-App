@@ -66,5 +66,5 @@ jobs:
           dist/*.exe
           dist/*.rpm
           dist/*.zip
-          dist/*.appimage
+          dist/*.AppImage
           dist/*.snap
