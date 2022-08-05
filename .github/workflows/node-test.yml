@@ -57,3 +57,13 @@ jobs:
       run: |
         sudo snap install snapcraft --classic
         yarn build-deb
+    - uses: actions/upload-artifact@v3
+      with:
+        name: ${{matrix.os}}
+        path: |
+          out/**/*.deb
+          out/**/*.dmg
+          out/**/*.exe
+          out/**/*.rpm
+          out/**/*.zip
+          out/**/*.appimage
