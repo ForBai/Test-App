@@ -30,7 +30,7 @@
     "test": "npm run unit && npm run e2e",
     "start": "npm run daisyinit && node build/start.js",
     "release": "npm run daisyinit && webpack --config=build/webpack.app.config.js --env=production && electron-builder",
-    "build-deb": "npm run daisyinit && webpack --config=build/webpack.app.config.js --env=production && electron-builder --linux deb"
+    "build-deb": "npm run daisyinit && webpack --config=build/webpack.app.config.js --env=production && electron-builder && electron-builder --linux deb"
   },
   "dependencies": {
     "daisyui": "^2.20.0",

@@ -61,9 +61,10 @@ jobs:
       with:
         name: ${{matrix.os}}
         path: |
-          out/**/*.deb
-          out/**/*.dmg
-          out/**/*.exe
-          out/**/*.rpm
-          out/**/*.zip
-          out/**/*.appimage
+          dist/*.deb
+          dist/*.dmg
+          dist/*.exe
+          dist/*.rpm
+          dist/*.zip
+          dist/*.appimage
+          dist/*.snap
